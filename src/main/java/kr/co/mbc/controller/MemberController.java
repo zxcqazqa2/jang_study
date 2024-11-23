@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,6 +21,16 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService memberService;
+	
+	// 회원정보 상세보기 화면으로 이동
+	@GetMapping("/read/{username}")
+	public String read(@PathVariable("username") String username, Model model) {
+		MemberEntity memberEntity = memberService.findByUsername(username);
+		
+		model.addAttribute("entity", memberEntity);
+		
+		return "/member/read";
+	}
 	
 	// 회원목록 화면으로 이동
 	@GetMapping("/list")
