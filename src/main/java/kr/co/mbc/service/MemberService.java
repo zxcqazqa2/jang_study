@@ -1,5 +1,7 @@
 package kr.co.mbc.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import kr.co.mbc.entity.MemberEntity;
@@ -14,6 +16,11 @@ public class MemberService {
 
 	public void createMember(MemberEntity memberEntity) {
 		memberRepository.save(memberEntity);
+	}
+
+	public List<MemberEntity> getMemberList() {
+		List<MemberEntity> memberList = memberRepository.findAll();
+		return memberList;
 	}
 	
 }
