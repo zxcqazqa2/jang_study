@@ -2,8 +2,10 @@ package kr.co.mbc.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,16 @@ public class MemberController {
 
 	private final MemberService memberService;
 	
+	// 회원목록 화면으로 이동
+	@GetMapping("/list")
+	public String list(Model model) {
+		
+		List<MemberEntity> memberList = memberService.getMemberList();
+		
+		model.addAttribute("memberList", memberList);
+		
+		return "/member/list";
+	}
 	
 	// 회원가입 처리
 	@PostMapping("/insert")
@@ -33,7 +45,7 @@ public class MemberController {
 		
 		memberService.createMember(memberEntity);
 		
-		return "/member/insert";
+		return "redirect:/member/list";
 	}
 	
 	// 회원가입 화면으로 이동
