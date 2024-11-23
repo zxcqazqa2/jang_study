@@ -22,5 +22,10 @@ public class MemberService {
 		List<MemberEntity> memberList = memberRepository.findAll();
 		return memberList;
 	}
+
+	public MemberEntity findByUsername(String username) {
+		MemberEntity memberEntity = memberRepository.findByUsername(username);
+		return memberEntity;
+	}
 	
 }

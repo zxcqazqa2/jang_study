@@ -31,7 +31,7 @@
 				<c:forEach items="${memberList}" var="dto" varStatus="status">
 					<tr>
 						<td>${status.index}</td>
-						<td><a href="#">${dto.username}</a></td>
+						<td><a href="/member/read/${dto.username}">${dto.username}</a></td>
 						<td>${dto.name}</td>
 					</tr>
 				</c:forEach>
