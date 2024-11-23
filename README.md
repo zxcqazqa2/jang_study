@@ -1,2 +1,2 @@
 # jang_study
-hello
+1. 환경설정 완료.
