@@ -24,25 +24,34 @@
 	
 	<div class="content">
 		
-		<form id="member_insert_insertForm" action="/member/insert" method="post">
+		<form:form id="member_insert_insertForm" modelAttribute="memberForm" action="/member/insert" method="post">
+			<%-- <form:errors path="*" cssClass="errorblock" element="div"></form:errors> --%>
 			<table class="table table-bordered">
 				<tr>
-					<th>username</th>
+					<th><form:label path="username">username</form:label></th>
 					<td>
-						<input name="username"><button type="button" id="member_insert_btn_checkId">중복검사</button>
+						<form:input path="username"/>
+						<form:errors path="username"></form:errors>
+					</td>
+					<td><button type="button" id="member_insert_btn_checkId">중복검사</button></td>
+				</tr>
+				<tr>
+					<th><form:label path="password">password</form:label></th>
+					<td colspan="2">
+						<form:input type="password" path="password"/>
+						<form:errors path="password"></form:errors>
 					</td>
 				</tr>
 				<tr>
-					<th>password</th>
-					<td><input type="password" name="password"></td>
-				</tr>
-				<tr>
-					<th>name</th>
-					<td><input name="name"></td>
+					<th><form:label path="name">name</form:label></th>
+					<td>
+						<form:input path="name"/>
+						<form:errors path="name"></form:errors>
+					</td>
 				</tr>
 			</table>
 			<button type="button" id="member_insert_btn_submit">회원가입</button>
-		</form>
+		</form:form>
 		
 	</div>
 	
@@ -70,7 +79,7 @@
 	
 	// 중복검사 버튼 클릭 이벤트
 	$("#member_insert_btn_checkId").click(function(){
-		let username = $(this).prev().val();
+		let username = $(this).parent().prev().find("form:input").val();
 		
 		$.ajax({
 			url : "/member/checkId",
