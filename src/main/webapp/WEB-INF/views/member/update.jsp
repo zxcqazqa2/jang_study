@@ -48,6 +48,7 @@
 	
 	$("a").eq(1).click(function(event){
 		event.preventDefault();
+		alert($(this).text());
 		let username = $(this).attr("href");
 		let $input = $("<input>").attr("type", "hidden").attr("name", "username").val(username);
 		let $form = $(this).parent().prev().find("form");
@@ -57,10 +58,12 @@
 	$("a").eq(2).click(function(event){
 		event.preventDefault();
 		let username = $(this).attr("href");
-		alert(username);
-		//let $input = $("<input>").attr("type", "hidden").attr("name", "username").val(username);
-		//let $form = $("<form>");
-		//form.attr("action", "/member/delete").attr("method", "post").append($input).appendTo("body").submit();
+		
+		let $input = $("<input>").attr("type", "hidden").attr("name", "username");
+		$input.val(username);
+		let $form = $("<form>");
+		$form.appendTo("body");
+		$form.attr("action", "/member/delete").attr("method", "post").append($input).submit();
 	});
 
 </script>

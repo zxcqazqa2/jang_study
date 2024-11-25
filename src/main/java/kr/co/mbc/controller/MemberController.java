@@ -22,6 +22,14 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@PostMapping("/delete")
+	public String delete(String username) {
+		
+		memberService.deleteByUsername(username);
+		
+		return "redirect:/member/list";
+	}
+	
 	@PostMapping("/update")
 	public String update(MemberEntity memberEntity) {
 		
