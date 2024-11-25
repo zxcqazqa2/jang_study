@@ -22,6 +22,27 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@PostMapping("/update")
+	public String update(MemberEntity memberEntity) {
+		
+		MemberEntity entity = memberService.findByUsername(memberEntity.getUsername());
+		
+		entity.setName(memberEntity.getName());
+		
+		memberService.update(entity);
+		
+		return "redirect:/member/read/"+memberEntity.getUsername();
+	}
+	
+	@GetMapping("/update/{username}")
+	public String update(@PathVariable("username") String username, Model model) {
+		
+		MemberEntity memberEntity = memberService.findByUsername(username);
+		model.addAttribute("entity", memberEntity);
+		
+		return "/member/update";
+	}
+	
 	@GetMapping("/read/{username}")
 	public String read(@PathVariable("username") String username, Model model) {
 		
