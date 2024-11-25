@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import kr.co.mbc.dto.MemberForm;
+import kr.co.mbc.dto.MemberResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,5 +44,20 @@ public class MemberEntity {
 				+ ", createDate=" + createDate + "]";
 	}
 	
+	public static MemberResponse toMemberResponse(MemberEntity memberEntity) {
+		return MemberResponse.builder()
+				.username(memberEntity.getUsername())
+				.name(memberEntity.getName())
+				.createDate(memberEntity.getCreateDate())
+				.build();
+	}
+	
+	public static MemberEntity toMemberEntity(MemberForm memberForm) {
+		return MemberEntity.builder()
+				.username(memberForm.getUsername())
+				.password(memberForm.getPassword())
+				.name(memberForm.getName())
+				.build();
+	}
 	
 }

@@ -23,15 +23,15 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>username</th>
-					<td>${entity.username}</td>
+					<td>${memberResponse.username}</td>
 				</tr>
 				<tr>
 					<th>name</th>
-					<td><input name="name" value="${entity.name}"></td>
+					<td><input name="name" value="${memberResponse.name}"></td>
 				</tr>
 				<tr>
 					<th>createDate</th>
-					<td>${entity.createDate}</td>
+					<td>${memberResponse.createDate}</td>
 				</tr>
 			</table>
 		</form>
@@ -39,8 +39,8 @@
 	
 	<div>
 		<a href="/member/list">목록</a>
-		<a href="${entity.username}">수정완료</a>
-		<a href="${entity.username}">삭제</a>
+		<a href="${memberResponse.username}">수정완료</a>
+		<a href="${memberResponse.username}">삭제</a>
 	</div>
 </div>
 
@@ -48,7 +48,6 @@
 	
 	$("a").eq(1).click(function(event){
 		event.preventDefault();
-		alert($(this).text());
 		let username = $(this).attr("href");
 		let $input = $("<input>").attr("type", "hidden").attr("name", "username").val(username);
 		let $form = $(this).parent().prev().find("form");

@@ -22,23 +22,23 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>username</th>
-				<td>${entity.username}</td>
+				<td>${memberResponse.username}</td>
 			</tr>
 			<tr>
 				<th>name</th>
-				<td>${entity.name}</td>
+				<td>${memberResponse.name}</td>
 			</tr>
 			<tr>
 				<th>createDate</th>
-				<td>${entity.createDate}</td>
+				<td>${memberResponse.createDate}</td>
 			</tr>
 		</table>
 	</div>
 	
 	<div>
 		<a href="/member/list">목록</a>
-		<a href="/member/update/${entity.username}">수정</a>
-		<a href="${entity.username}">삭제</a>
+		<a href="/member/update/${memberResponse.username}">수정</a>
+		<a href="${memberResponse.username}">삭제</a>
 	</div>
 </div>
 
