@@ -35,5 +35,12 @@ public class MemberEntity {
 	private String name;
 	
 	private String createDate;
+
+	@Override
+	public String toString() {
+		return "MemberEntity [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
+				+ ", createDate=" + createDate + "]";
+	}
+	
 	
 }
