@@ -6,5 +6,7 @@ import kr.co.mbc.entity.MemberEntity;
 
 public interface MemberRepository extends JpaRepository<MemberEntity, Long>{
 
+	MemberEntity findByUsername(String username);
+
 	
 }
