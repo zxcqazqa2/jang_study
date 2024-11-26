@@ -1,6 +1,7 @@
 package kr.co.mbc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,17 @@ public class BoardService {
 
 	public List<BoardEntity> findAll() {
 		return boardRepository.findAll();
+	}
+
+	public BoardEntity findById(Long id) {
+		Optional<BoardEntity> opt = boardRepository.findById(id);
+		
+		if(opt.isPresent()) {
+			BoardEntity boardEntity = opt.get();
+			return boardEntity;
+		}
+		
+		return null;
 	}
 	
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글목록 화면</title>
+<title>글 상세 화면</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" type="text/javascript"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -15,30 +15,32 @@
 
 <div>
 	<div>
-		<h2>글목록</h2>
+		<h2>글 상세보기</h2>
 	</div>
 	
 	<div>
 		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>게시글번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${boardList}" var="dto">
-					<tr>
-						<td>${dto.id}</td>
-						<td><a href="/board/read/${dto.id}">${dto.title}</a></td>
-						<td>${dto.writer}</td>
-						<td>${dto.writeDate}</td>
-					</tr>
-				</c:forEach>
-			</tbody>		
+			<tr>
+				<th>게시글번호</th>
+				<td>>${boardResponse.id}</td>
+				<th>제목</th>
+				<td>${boardResponse.title}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>${boardResponse.writer}</td>
+				<th>작성일</th>
+				<td>${boardResponse.writeDate}</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<pre>${boardResponse.content}</pre>
+				</td>
+			</tr>
 		</table>
+		<a href="/board/list">목록</a>
+		<a href="#">수정</a>
+		<a href="#">삭제</a>
 	</div>
 </div>
 
