@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +29,18 @@ public class BoardController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@GetMapping("/read/{id}")
+	public String read(@PathVariable("id") Long id, Model model) {
+		
+		BoardEntity boardEntity = boardService.findById(id);
+		
+		BoardResponse boardResponse = BoardEntity.toBoardResponse(boardEntity); // <-- 왜 자동완성이 안되나?
+		
+		model.addAttribute("boardResponse", boardResponse);
+		
+		return "/board/read";
+	}
 	
 	@GetMapping("/list")
 	public String list(Model model) {
