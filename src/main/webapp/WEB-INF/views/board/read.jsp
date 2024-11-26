@@ -39,7 +39,7 @@
 			</tr>
 		</table>
 		<a href="/board/list">목록</a>
-		<a href="#">수정</a>
+		<a href="/board/update/${boardResponse.id}">수정</a>
 		<a href="#">삭제</a>
 	</div>
 </div>
