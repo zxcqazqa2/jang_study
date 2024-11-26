@@ -30,6 +30,30 @@ public class BoardController {
 	@Autowired
 	private MemberService memberService;
 	
+	@PostMapping("/update")
+	public String update(Long id ,BoardForm boardForm) {
+		
+		BoardEntity boardEntity = boardService.findById(id);
+		boardEntity.setTitle(boardForm.getTitle());
+		boardEntity.setContent(boardForm.getContent());
+		
+		boardService.save(boardEntity);
+		
+		return "redirect:board/read/"+boardEntity.getId();
+	}
+	
+	@GetMapping("/update/{id}")
+	public String update(@PathVariable("id") Long id, Model model) {
+		
+		BoardEntity boardEntity = boardService.findById(id);
+		
+		BoardResponse boardResponse = BoardEntity.toBoardResponse(boardEntity); // <-- 자동완성 또 안됨
+		
+		model.addAttribute("boardResponse", boardResponse);
+		
+		return "/member/update";
+	}
+	
 	@GetMapping("/read/{id}")
 	public String read(@PathVariable("id") Long id, Model model) {
 		
