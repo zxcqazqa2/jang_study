@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import kr.co.mbc.entity.BoardEntity;
 import kr.co.mbc.repository.BoardRepository;
 
@@ -32,6 +33,10 @@ public class BoardService {
 		}
 		
 		return null;
+	}
+
+	public void deleteById(Long id) {
+		boardRepository.deleteById(id);
 	}
 	
 }
