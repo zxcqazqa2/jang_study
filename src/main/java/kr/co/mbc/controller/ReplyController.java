@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,14 @@ public class ReplyController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@DeleteMapping("/")
+	public String delete(@RequestBody Map<String, String> map) {
+		Long id = Long.parseLong((String) map.get("id"));
+		replyService.deleteById(id);
+		
+		return "ok";
+	}
 	
 	@PutMapping("/")
 	public String update(@RequestBody Map<String, String> map) {
