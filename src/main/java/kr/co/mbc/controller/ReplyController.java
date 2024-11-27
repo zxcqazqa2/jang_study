@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,17 @@ public class ReplyController {
 	@Autowired
 	private MemberService memberService;
 	
-	
+	@PutMapping("/")
+	public String update(@RequestBody Map<String, String> map) {
+		Long id = Long.parseLong((String) map.get("id"));
+		String content = map.get("content");
+		
+		ReplyEntity replyEntity = replyService.findById(id);
+		replyEntity.setContent(content);
+		replyService.save(replyEntity);
+		
+		return "ok";
+	}
 	
 	@GetMapping("/{bId}")
 	public List<ReplyResponse> list(@PathVariable("bId")Long bId) {
