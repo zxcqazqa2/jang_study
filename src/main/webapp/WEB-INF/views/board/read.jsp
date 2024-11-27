@@ -42,9 +42,26 @@
 		<a href="/board/update/${boardResponse.id}">수정</a>
 		<a href="${boardResponse.id}">삭제</a>
 	</div>
+	<hr>
+	<h2>댓글목록</h2>
+	<div class="board_read_replyForm">
+		<div>
+			작성자 : <input name="writer">
+		</div>
+		<div>
+			<textarea rows="3" cols="100" name="content"></textarea>
+			<button id="reply_btn_insert">등록</button>
+		</div>
+	</div>
+	<div class="replyList">
+		
+	</div>
 </div>
 
+<script type="text/javascript" src="/js/test1.js"></script>
 <script type="text/javascript">
+
+
 	$("a").eq(2).click(function(event){
 		event.preventDefault();
 		let isDelete = confirm("정말 삭제 하시겠습니까?");
