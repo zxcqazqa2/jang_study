@@ -26,21 +26,24 @@ function replyListRender(obj){
 	$(".reply_btn_delete").each(function(){
 		$(this).click(function(){
 			let id = $(this).attr("data-rId");
-			$.ajax({
-				url : "/replies/",
-				type: "delete",
-				data: JSON.stringify({
-					id: id
-				}),
-				headers: {
-					"Content-Type": "application/json",
-					"X-HTTP-Method-Override": "DELETE"
-				},
-				dataType: "text",
-				success: function(result) {
-					getReplyList();
-				}
-			});
+			let isDelete = confirm("정말 삭제 하시겠습니까?");
+			if(isDelete) {
+				$.ajax({
+					url : "/replies/",
+					type: "delete",
+					data: JSON.stringify({
+						id: id
+					}),
+					headers: {
+						"Content-Type": "application/json",
+						"X-HTTP-Method-Override": "DELETE"
+					},
+					dataType: "text",
+					success: function(result) {
+						getReplyList();
+					}
+				});
+			}
 		});
 	});
 	

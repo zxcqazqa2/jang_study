@@ -33,4 +33,8 @@ public class ReplyService {
 		 }
 		 return null;
 	}
+
+	public void deleteById(Long id) {
+		replyRepository.deleteById(id);
+	}
 }
