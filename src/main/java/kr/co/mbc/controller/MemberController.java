@@ -36,11 +36,12 @@ public class MemberController {
 	public String checkId(@RequestParam Map<String, String> map) {
 		String username = map.get("username");
 		
+		
 		MemberEntity memberEntity = memberService.findByUsername(username);
-		if(memberEntity == null) {
-			return "ok";
+		if(memberEntity != null) {
+			return "no";
 		}
-		return "no";
+		return "ok";
 	}
 	
 	@PostMapping("/delete")

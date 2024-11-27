@@ -79,7 +79,7 @@
 	
 	// 중복검사 버튼 클릭 이벤트
 	$("#member_insert_btn_checkId").click(function(){
-		let username = $(this).parent().prev().find("form:input").val();
+		let username = $(this).parent().prev().find("input").val();
 		
 		$.ajax({
 			url : "/member/checkId",

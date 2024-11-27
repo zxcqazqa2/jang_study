@@ -107,7 +107,7 @@ public class BoardController {
 		
 		boardService.save(boardEntity);
 		
-		return "/board/insert";
+		return "redirect:/board/read/"+boardEntity.getId();
 	}
 	
 	@GetMapping("/insert")

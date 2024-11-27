@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import kr.co.mbc.dto.ReplyResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,12 +31,25 @@ public class ReplyEntity {
 	
 	private String content;
 	
-	private String writer;
-	
 	private String writeDate;
+	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "member_id")
+	private MemberEntity member;
 	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "board_id")
 	private BoardEntity board;
+	
+	public static ReplyResponse toReplyResponse(ReplyEntity replyEntity) {
+		 ReplyResponse replyResponse = ReplyResponse.builder()
+				.id(replyEntity.getId())
+				.content(replyEntity.getContent())
+				.writeDate(replyEntity.getWriteDate())
+				.writer(replyEntity.getMember().getUsername())
+				.build();
+		 return replyResponse;
+	}
 }

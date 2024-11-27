@@ -1,6 +1,7 @@
 package kr.co.mbc.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.mbc.dto.ReplyResponse;
 import kr.co.mbc.entity.BoardEntity;
+import kr.co.mbc.entity.MemberEntity;
 import kr.co.mbc.entity.ReplyEntity;
 import kr.co.mbc.service.BoardService;
+import kr.co.mbc.service.MemberService;
 import kr.co.mbc.service.ReplyService;
 
 @RestController
@@ -28,11 +32,21 @@ public class ReplyController {
 	@Autowired
 	private BoardService boardService;
 	
+	@Autowired
+	private MemberService memberService;
+	
+	
+	
 	@GetMapping("/{bId}")
-	public List<ReplyEntity> list(@PathVariable("bId")Long bId) {
+	public List<ReplyResponse> list(@PathVariable("bId")Long bId) {
 		BoardEntity boardEntity = boardService.findById(bId);
 		
-		List<ReplyEntity> replyList = replyService.findByBoard(boardEntity);
+		List<ReplyEntity> replyEntityList = replyService.findByBoard(boardEntity);
+		List<ReplyResponse> replyList = new ArrayList<ReplyResponse>();
+		for (ReplyEntity replyEntity : replyEntityList) {
+			ReplyResponse replyResponse = ReplyEntity.toReplyResponse(replyEntity);
+			replyList.add(replyResponse);
+		}
 		
 		return replyList;
 	}
@@ -44,13 +58,15 @@ public class ReplyController {
 		BoardEntity boardEntity = boardService.findById(bId);
 		
 		String writer = map.get("writer");
+		MemberEntity memberEntity = memberService.findByUsername(writer);
+		
 		String content = map.get("content");
 		
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String naljja = sdf.format(d);
 		
-		ReplyEntity replyEntity = new ReplyEntity(null, content, writer, naljja, boardEntity);
+		ReplyEntity replyEntity = new ReplyEntity(null, content, naljja, memberEntity, boardEntity);
 		
 		replyService.save(replyEntity);
 		

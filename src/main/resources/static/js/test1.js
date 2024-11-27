@@ -5,15 +5,91 @@ function replyListRender(obj){
 	for(el of obj){
 		tag+=`
 			<div>
-				작성자 : ${el.writer}<br>
-				내용 : ${el.content}
+				작성자 : ${el.writer} | 작성일 : ${el.writeDate}<br>
+				내용 : <textarea readonly="readonly" rows="3" name="content">${el.content}</textarea>
+				<div>
+					<button class="reply_btn_toUpdateForm">수정</button>
+					<button data-rId="${el.id}" class="reply_btn_delete">삭제</button>
+				</div>
+				<div style="display: none;">
+					<button data-rId="${el.id}" class="reply_btn_update">수정완료</button>
+					<button class="reply_btn_back">취소</button>
+				</div>
+				<input type='hidden' value='${el.content}'>
 			</div>
+			<hr>
 		`
 	}
 	$(".replyList").html(tag);
+	
+	// 댓글 삭제 버튼 클릭 이벤트
+	$(".reply_btn_delete").each(function(){
+		$(this).click(function(){
+			let id = $(this).attr("data-rId");
+			$.ajax({
+				url : "/replies/",
+				type: "delete",
+				data: JSON.stringify({
+					id: id
+				}),
+				headers: {
+					"Content-Type": "application/json",
+					"X-HTTP-Method-Override": "DELETE"
+				},
+				dataType: "text",
+				success: function(result) {
+					getReplyList();
+				}
+			});
+		});
+	});
+	
+	// 댓글 수정완료 버튼 이벤트
+	$(".reply_btn_update").each(function(){
+		$(this).click(function(){
+			let id = $(this).attr("data-rId");
+			let content = $(this).closest("div").parent().find("textarea").val();
+			$.ajax({
+				url : "/replies/",
+				type : "put",
+				data : JSON.stringify({
+					id : id,
+					content : content
+				}),
+				headers: {
+					"Content-Type": "application/json",
+					"X-HTTP-Method-Override": "PUT"
+				},
+				dataType: "text",
+				success: function(result) {
+					getReplyList();
+				}
+			});
+		});
+	});
+	
+	// 댓글 수정취소 버튼 클릭 이벤트
+	$(".reply_btn_back").each(function(){
+		$(this).click(function(){
+			let orgContent = $(this).closest("div").parent().find("input").val();
+			$(this).closest("div").hide();
+			$(this).closest("div").prev().show();
+			$(this).closest("div").parent().find("textarea").attr("readonly", true).val(orgContent);
+		});
+	});
+	
+	// 댓글 수정 버튼 클릭 이벤트
+	$(".reply_btn_toUpdateForm").each(function(){
+		$(this).click(function(){
+			$(this).closest("div").hide();
+			$(this).closest("div").next().show();
+			$(this).closest("div").parent().find("textarea").removeAttr("readonly");
+		});
+	});
 }
 
-function getReplyList(bId){
+function getReplyList(){
+	let bId = $("a").eq(2).attr("href");
 	$.ajax({
 		url : "/replies/"+bId,
 		type : "get",
@@ -26,6 +102,8 @@ function getReplyList(bId){
 }
 
 $(function(){
+	
+	getReplyList();
 	
 	$("#reply_btn_insert").click(function(){
 		let bId = $("a").eq(2).attr("href");
@@ -46,7 +124,7 @@ $(function(){
 			},
 			dataType : "text",
 			success : function(result){
-				getReplyList(bId);
+				getReplyList();
 			}
 		});
 	});
