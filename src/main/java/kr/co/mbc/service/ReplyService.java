@@ -1,6 +1,7 @@
 package kr.co.mbc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,15 @@ public class ReplyService {
 
 	public List<ReplyEntity> findByBoard(BoardEntity boardEntity) {
 		return replyRepository.findByBoard(boardEntity);
+	}
+
+	public ReplyEntity findById(Long id) {
+		 Optional<ReplyEntity> opt = replyRepository.findById(id);
+		 
+		 if(opt.isPresent()) {
+			 ReplyEntity replyEntity = opt.get();
+			 return replyEntity;
+		 }
+		 return null;
 	}
 }
