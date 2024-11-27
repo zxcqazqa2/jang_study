@@ -30,6 +30,14 @@ public class BoardController {
 	@Autowired
 	private MemberService memberService;
 	
+	@PostMapping("/delete")
+	public String delete(Long id) {
+		
+		boardService.deleteById(id);
+		
+		return "redirect:/board/list";
+	}
+	
 	@PostMapping("/update")
 	public String update(Long id ,BoardForm boardForm) {
 		
@@ -39,7 +47,7 @@ public class BoardController {
 		
 		boardService.save(boardEntity);
 		
-		return "redirect:board/read/"+boardEntity.getId();
+		return "redirect:/board/read/"+boardEntity.getId();
 	}
 	
 	@GetMapping("/update/{id}")
@@ -51,7 +59,7 @@ public class BoardController {
 		
 		model.addAttribute("boardResponse", boardResponse);
 		
-		return "/member/update";
+		return "/board/update";
 	}
 	
 	@GetMapping("/read/{id}")

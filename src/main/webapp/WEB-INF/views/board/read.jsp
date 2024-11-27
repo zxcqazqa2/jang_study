@@ -22,7 +22,7 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>게시글번호</th>
-				<td>>${boardResponse.id}</td>
+				<td>${boardResponse.id}</td>
 				<th>제목</th>
 				<td>${boardResponse.title}</td>
 			</tr>
@@ -40,9 +40,23 @@
 		</table>
 		<a href="/board/list">목록</a>
 		<a href="/board/update/${boardResponse.id}">수정</a>
-		<a href="#">삭제</a>
+		<a href="${boardResponse.id}">삭제</a>
 	</div>
 </div>
 
+<script type="text/javascript">
+	$("a").eq(2).click(function(event){
+		event.preventDefault();
+		let isDelete = confirm("정말 삭제 하시겠습니까?");
+		let id = $(this).attr("href");
+		if(isDelete) {
+			let $input = $("<input>")
+			$input.attr("name", "id").attr("type","hidden").val(id);
+			let $form = $("<form>");
+			$form.attr("action", "/board/delete").attr("method", "post").append($input).appendTo("body").submit();
+		}
+	});
+
+</script>
 </body>
 </html>
