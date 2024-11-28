@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
+<%@ include file="../part_header.jsp" %>
 
 <div class="container">
 	

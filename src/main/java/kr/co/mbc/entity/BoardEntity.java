@@ -65,6 +65,7 @@ public class BoardEntity {
 				.content(boardEntity.getContent())
 				.writer(boardEntity.getMember().getUsername())
 				.writeDate(boardEntity.getWriteDate())
+				.replyList(boardEntity.getReplyList())
 				.build();
 	}
 	

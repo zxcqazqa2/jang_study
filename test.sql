@@ -10,8 +10,8 @@ select * from tbl_board where cate_id=1;
 select * from tbl_board where cate_id=2;
 
 
+delete from tbl_reply;
 delete from tbl_board;
-
 
 
 
