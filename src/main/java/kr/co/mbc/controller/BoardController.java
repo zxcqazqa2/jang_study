@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.mbc.dto.BoardForm;
 import kr.co.mbc.dto.BoardResponse;
 import kr.co.mbc.entity.BoardEntity;
+import kr.co.mbc.entity.CateEntity;
 import kr.co.mbc.entity.MemberEntity;
 import kr.co.mbc.service.BoardService;
+import kr.co.mbc.service.CateService;
 import kr.co.mbc.service.MemberService;
 
 @Controller
@@ -29,6 +31,9 @@ public class BoardController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private CateService cateService; 
 	
 	@PostMapping("/delete")
 	public String delete(Long id) {
@@ -74,6 +79,23 @@ public class BoardController {
 		return "/board/read";
 	}
 	
+	@GetMapping("/list/{cName}")
+	public String list(@PathVariable("cName") String cName, Model model) {
+		
+		CateEntity cateEntity = cateService.findByName(cName);
+		
+		List<BoardEntity> boardEntityList = boardService.findByCate(cateEntity);
+		List<BoardResponse> boardList = new ArrayList<BoardResponse>();
+		
+		for (BoardEntity boardEntity : boardEntityList) {
+			BoardResponse boardResponse = BoardEntity.toBoardResponse(boardEntity);
+			boardList.add(boardResponse);
+		}
+		model.addAttribute("boardList", boardList);
+		
+		return "/board/list";
+	}
+	
 	@GetMapping("/list")
 	public String list(Model model) {
 		
@@ -98,12 +120,15 @@ public class BoardController {
 		
 		MemberEntity memberEntity = memberService.findByUsername(boardForm.getWriter());
 		
+		CateEntity cateEntity = cateService.findByName(boardForm.getCName());
+		
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String naljja = sdf.format(d);
 		
 		boardEntity.setWriteDate(naljja);
 		boardEntity.setMember(memberEntity);
+		boardEntity.setCate(cateEntity);
 		
 		boardService.save(boardEntity);
 		

@@ -22,12 +22,13 @@ public class BoardForm {
 	
 	@NotBlank(message = "writer은 필수")
 	private String writer;
+	
+	@NotBlank(message = "cName은 필수")
+	private String cName;
 
 	@Override
 	public String toString() {
-		return "BoardForm [title=" + title + ", content=" + content + ", writer=" + writer + "]";
+		return "BoardForm [title=" + title + ", content=" + content + ", writer=" + writer + ", cName=" + cName + "]";
 	}
 
-	
-	
 }

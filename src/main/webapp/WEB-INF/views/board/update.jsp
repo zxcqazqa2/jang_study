@@ -51,27 +51,6 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-	$("#board_update_btn_delete").click(function(){
-		
-		let isDelete = confirm("정말 삭제 하시겠습니까?");
-		
-		if(isDelete) {
-			let $form = $("#board_update_updateForm");
-			$form.attr("action", "/board/delete").submit();
-		}
-	});
-
-	$("#board_update_btn_update").click(function(){
-		let $form = $("#board_update_updateForm");
-		let writer = $("table tr").eq(1).find("td").eq(0).text();
-		let $input = $("<input>");
-		$input.attr("name", "writer").attr("type","hidden");
-		$input.val(writer);
-		$form.append($input);
-		$form.submit();
-	});
-
-</script>
+<script type="text/javascript" src="/js/boardService.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-console.log("test1.js파일 불러옴.");
+console.log("replyService.js파일 불러옴.");
 
 function replyListRender(obj){
 	let tag = ``;
@@ -6,7 +6,7 @@ function replyListRender(obj){
 		tag+=`
 			<div>
 				작성자 : ${el.writer} | 작성일 : ${el.writeDate}<br>
-				내용 : <textarea readonly="readonly" rows="3" name="content">${el.content}</textarea>
+				<div class='replyContent'>${el.content}</div>
 				<div>
 					<button class="reply_btn_toUpdateForm">수정</button>
 					<button data-rId="${el.id}" class="reply_btn_delete">삭제</button>
@@ -75,18 +75,21 @@ function replyListRender(obj){
 	$(".reply_btn_back").each(function(){
 		$(this).click(function(){
 			let orgContent = $(this).closest("div").parent().find("input").val();
+			
 			$(this).closest("div").hide();
 			$(this).closest("div").prev().show();
-			$(this).closest("div").parent().find("textarea").attr("readonly", true).val(orgContent);
+			$(this).closest("div").parent().find(".replyContent").text(orgContent);
 		});
 	});
 	
 	// 댓글 수정 버튼 클릭 이벤트
 	$(".reply_btn_toUpdateForm").each(function(){
 		$(this).click(function(){
+			let orgContent = $(this).closest("div").parent().find("input").val();
+			let $textarea = $("<textarea>").attr("name","content").attr("row","3").val(orgContent);
 			$(this).closest("div").hide();
 			$(this).closest("div").next().show();
-			$(this).closest("div").parent().find("textarea").removeAttr("readonly");
+			$(this).closest("div").parent().find(".replyContent").text('').append($textarea);
 		});
 	});
 }

@@ -62,22 +62,7 @@
 	
 </div>
 
-<script type="text/javascript" src="/js/test1.js"></script>
-<script type="text/javascript">
-
-
-	$("a").eq(2).click(function(event){
-		event.preventDefault();
-		let isDelete = confirm("정말 삭제 하시겠습니까?");
-		let id = $(this).attr("href");
-		if(isDelete) {
-			let $input = $("<input>")
-			$input.attr("name", "id").attr("type","hidden").val(id);
-			let $form = $("<form>");
-			$form.attr("action", "/board/delete").attr("method", "post").append($input).appendTo("body").submit();
-		}
-	});
-
-</script>
+<script type="text/javascript" src="/js/boardService.js"></script>
+<script type="text/javascript" src="/js/replyService.js"></script>
 </body>
 </html>

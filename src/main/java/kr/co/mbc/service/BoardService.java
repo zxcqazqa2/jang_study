@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import kr.co.mbc.entity.BoardEntity;
+import kr.co.mbc.entity.CateEntity;
 import kr.co.mbc.repository.BoardRepository;
 
 @Service
@@ -37,6 +38,10 @@ public class BoardService {
 
 	public void deleteById(Long id) {
 		boardRepository.deleteById(id);
+	}
+
+	public List<BoardEntity> findByCate(CateEntity cateEntity) {
+		return boardRepository.findByCate(cateEntity);
 	}
 	
 }
