@@ -15,6 +15,8 @@ public class BoardResponse {
 
 	private Long id;
 	
+	private String cName;
+	
 	private String title;
 	
 	private String content;

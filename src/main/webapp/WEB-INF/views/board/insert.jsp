@@ -22,11 +22,17 @@
 		<form action="/board/insert" method="post">
 			<table class="table table-bordered">
 				<tr>
+					<th>카테고리</th>
+					<td>
+						<select name="cName">
+							<option value="notice">공지사항</option>
+							<option value="free">자유게시판</option>
+						</select>
+					</td>
 					<th>제목</th>
 					<td><input name="title"></td>
 					<th>작성자</th>
 					<td><input name="writer"></td>
-					
 				</tr>
 				<tr>
 					<td colspan="4">

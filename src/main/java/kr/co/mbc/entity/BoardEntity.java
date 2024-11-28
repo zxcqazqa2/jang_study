@@ -40,10 +40,12 @@ public class BoardEntity {
 	
 	private String content;
 	
-	@Column(nullable = false)
-	private String writer;
-	
 	private String writeDate;
+	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "cate_id")
+	private CateEntity cate;
 	
 	@OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
 	@JsonIgnore
@@ -58,9 +60,10 @@ public class BoardEntity {
 	public static BoardResponse toBoardResponse(BoardEntity boardEntity) {
 		return BoardResponse.builder()
 				.id(boardEntity.getId())
+				.cName(boardEntity.getCate().getName())
 				.title(boardEntity.getTitle())
 				.content(boardEntity.getContent())
-				.writer(boardEntity.getWriter())
+				.writer(boardEntity.getMember().getUsername())
 				.writeDate(boardEntity.getWriteDate())
 				.build();
 	}
@@ -69,7 +72,6 @@ public class BoardEntity {
 		return BoardEntity.builder()
 				.title(boardForm.getTitle())
 				.content(boardForm.getContent())
-				.writer(boardForm.getWriter())
 				.build();
 	}
 }
