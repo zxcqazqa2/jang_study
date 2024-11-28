@@ -1,5 +1,8 @@
 package kr.co.mbc.dto;
 
+import java.util.List;
+
+import kr.co.mbc.entity.ReplyEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,4 +27,6 @@ public class BoardResponse {
 	private String writer;
 	
 	private String writeDate;
+	
+	private List<ReplyEntity> replyList;
 }
