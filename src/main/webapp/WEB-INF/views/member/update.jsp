@@ -40,34 +40,13 @@
 		</form>
 	</div>
 	
-	<div>
+	<div class="member_update_btns">
 		<a href="/member/list">목록</a>
 		<a href="${memberResponse.username}">수정완료</a>
 		<a href="${memberResponse.username}">삭제</a>
 	</div>
 </div>
 
-<script type="text/javascript">
-	
-	$("a").eq(1).click(function(event){
-		event.preventDefault();
-		let username = $(this).attr("href");
-		let $input = $("<input>").attr("type", "hidden").attr("name", "username").val(username);
-		let $form = $(this).parent().prev().find("form");
-		$form.append($input).submit();
-	});
-
-	$("a").eq(2).click(function(event){
-		event.preventDefault();
-		let username = $(this).attr("href");
-		
-		let $input = $("<input>").attr("type", "hidden").attr("name", "username");
-		$input.val(username);
-		let $form = $("<form>");
-		$form.appendTo("body");
-		$form.attr("action", "/member/delete").attr("method", "post").append($input).submit();
-	});
-
-</script>
+<script type="text/javascript" src="/js/memberService.js"></script>
 </body>
 </html>

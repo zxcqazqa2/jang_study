@@ -38,8 +38,15 @@
 				<tr>
 					<th><form:label path="password">password</form:label></th>
 					<td colspan="2">
-						<form:input type="password" path="password"/>
+						<form:input type="password" path="password"/><span style=""></span>
 						<form:errors path="password"></form:errors>
+					</td>
+				</tr>
+				<tr>
+					<th><form:label path="password2">password확인</form:label></th>
+					<td colspan="2">
+						<form:input type="password" path="password2"/><span></span>
+						<form:errors path="password2"></form:errors>
 					</td>
 				</tr>
 				<tr>
@@ -58,48 +65,6 @@
 	
 </div>
 
-<script type="text/javascript" src="/js/test1.js"></script>
-<script type="text/javascript">
-	
-	let isOk = false;
-	
-	// 회원가입 버튼 클릭 이벤트
-	$("#member_insert_btn_submit").click(function(){
-		if(!isOk){
-			alert("중복검사 하세요");
-			return;
-		}
-		$("#member_insert_insertForm").submit();
-	});
-	
-	// username 입력한 값 변경시 이벤트 --> input안되서 -> on으로 변경하니깐 됨.
-	$("body").on("input", "input[name='username']", function(){
-		isOk = false;
-	});
-	
-	// 중복검사 버튼 클릭 이벤트
-	$("#member_insert_btn_checkId").click(function(){
-		let username = $(this).parent().prev().find("input").val();
-		
-		$.ajax({
-			url : "/member/checkId",
-			type : "get",
-			data : {
-				username : username
-			},
-			dataType : "text",
-			success : function(result){
-				if(result =='ok') {
-					alert("사용가능한 아이디");
-					isOk = true;
-					return;
-				}
-				alert("이미 사용중인 아이디");
-			}
-		});
-		
-	});
-
-</script>
+<script type="text/javascript" src="/js/memberService.js"></script>
 </body>
 </html>
