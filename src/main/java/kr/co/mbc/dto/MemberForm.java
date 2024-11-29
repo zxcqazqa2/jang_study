@@ -22,6 +22,9 @@ public class MemberForm {
 	@NotBlank(message = "password는 필수항목입니다.")
 	private String password;
 	
+	@NotBlank(message = "password2는 필수항목입니다.")
+	private String password2;
+	
 	@NotBlank(message = "name은 필수항목입니다.")
 	private String name;
 
